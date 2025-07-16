@@ -148,10 +148,10 @@ function App() {
                   </div>
                 ) : (
                   <div
-                    className="flex justify-between align-center px-0"
+                    className="flex justify-between align-center"
                     onClick={() => setShowRenameColumn(column.id)}
                   >
-                    <p className="text-left">{column.name}</p>
+                    <p className="text-left px-2">{column.name}</p>
                     <Button
                       className="pt-0 px-4 cursor-pointer hover:opacity-75"
                       variant={"link"}
