@@ -13,7 +13,6 @@ import EditDarkIconUrl from "@/assets/edit_dark.svg";
 import { useEffect, useState, type FunctionComponent } from "react";
 import { Button } from "./ui/button";
 import {
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
