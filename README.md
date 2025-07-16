@@ -1,69 +1,57 @@
-# React + TypeScript + Vite
+# A Simple Kanban App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A basic kanban board built with React using `dnd-kit` and `redux-toolkit`.
 
-Currently, two official plugins are available:
+## Setup Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project has been set up with yarn so a simple
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+yarn install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+followed by a
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+yarn dev
+```
+
+should suffice to run the project.
+
+This project has been built with Vite. If you wish to build the project and run it in production mode, after a `yarn install`, simply run
+
+```
+yarn build
+```
+
+and subsequently
+
+```
+yarn preview
+```
+
+## ✅ Completed Features
+
+### Core Features
+
+- Dynamic Columns
+- CRUD Columns
+- CRUD Tasks/Items
+- Sortable Tasks/Items
+- Task Details Modal
+- CRUD Comments
+- Data Persistency (w/ `redux-persist`)
+
+### Optional Features
+
+- Responsive Design (save for a minor pitfall)
+- Keyboard Navigation to move tasks (Press `Tab` till the desired card is selected, hit `Enter` or `Space` to begin dragging and navigate to the desired spot with arrow keys)
+
+## ❌ Features Missed
+
+- Threaded Comment System
+
+## 🐛 Known Issues
+
+- Users can do everything outside of moving cards on mobile - A custom implementation of the `MouseSensor` class for `dnd-kit` had to be used, which meant that the touch-supported built-in class could not be used.
+- There is a strange issue with the built-in collision detection on `dnd-kit` wherein high resolution screens mess with it. If you are unable to move cards to empty containers, consider resizing the browser window (this really isn't ideal but I ran out of time before I could write a custom implementation of the collision detection)

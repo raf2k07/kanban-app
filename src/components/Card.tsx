@@ -10,13 +10,17 @@ import EditDarkIconUrl from "@/assets/edit_dark.svg";
 import { useAppDispatch } from "@/app/hooks";
 
 interface CardProps {
-  id: UniqueIdentifier;
+  id?: UniqueIdentifier;
   item?: Item;
   columnId?: string;
   title?: string;
   ref?: (node: HTMLElement | null) => void;
   dragListeners?: React.HTMLAttributes<HTMLElement>;
   dragAttributes?: React.HTMLAttributes<HTMLElement>;
+  style?: {
+    transition: string | undefined;
+    transform: string;
+  };
 }
 
 export const Card: FunctionComponent<CardProps> = ({
@@ -28,6 +32,7 @@ export const Card: FunctionComponent<CardProps> = ({
   ref,
   dragListeners = {},
   dragAttributes = {},
+  style,
   ...props
 }) => {
   const dispatch = useAppDispatch();
@@ -35,6 +40,7 @@ export const Card: FunctionComponent<CardProps> = ({
     <div
       className="bg-white rounded-md p-2"
       ref={ref}
+      style={style}
       {...dragListeners}
       {...dragAttributes}
       {...props}
