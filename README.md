@@ -2,6 +2,10 @@
 
 A basic kanban board built with React using `dnd-kit` and `redux-toolkit`.
 
+## Fixes
+
+There are minor fixes that have been made past the deadline because I was simply annoyed with them. In order to view the submission in its original state please check out the 'submission' branch.
+
 ## Setup
 
 The project has been set up with yarn so a simple
@@ -54,5 +58,5 @@ yarn preview
 ## 🐛 Known Issues
 
 - Users can do everything outside of moving cards on mobile - A custom implementation of the `MouseSensor` class for `dnd-kit` had to be used, which meant that the touch-supported built-in class could not be used.
-- There is a strange issue with the built-in collision detection on `dnd-kit` wherein high resolution screens mess with it. If you are unable to move cards to empty containers, consider resizing the browser window (this really isn't ideal but I ran out of time before I could write a custom implementation of the collision detection)
-- Adding a card to the end of a populated container _sometimes_ gets placed in the second last slot (I genuinely have no idea why)
+- There is a strange issue with the built-in collision detection on `dnd-kit` wherein high resolution screens mess with it. If you are unable to move cards to empty containers, consider resizing the browser window (this really isn't ideal but I ran out of time before I could write a custom implementation of the collision detection) (FIXED)
+- Adding a card to the end of a populated container _sometimes_ gets placed in the second last slot (FIXED)
