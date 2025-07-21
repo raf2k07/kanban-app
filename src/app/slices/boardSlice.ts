@@ -97,9 +97,10 @@ export const boardSlice = createSlice({
         containerId: string;
         itemId: string;
         overId?: string;
+        itemType: "column" | null;
       }>
     ) => {
-      const { currentContainerId, containerId, itemId, overId } =
+      const { currentContainerId, containerId, itemId, overId, itemType } =
         action.payload;
 
       const currentColumn = state.columns.find(
@@ -110,14 +111,22 @@ export const boardSlice = createSlice({
       const indexInCurrentColumn = currentColumn?.items.findIndex(
         (item) => item.id === itemId
       );
-      const indexInTargetColumn = targetColumn?.items.findIndex(
-        (item) => item.id === overId
-      );
+
+      // sometimes the collision detection returns the columnId as overId even when the column has items, this should remedy it
+      // if the overId is column Id, add item to end of array, else find the index
+      const indexInTargetColumn =
+        itemType === "column"
+          ? targetColumn?.items.length
+          : targetColumn?.items.findIndex((item) => {
+              return item.id === overId;
+            });
+
       const itemToMove = currentColumn?.items[indexInCurrentColumn!];
 
       if (currentColumn && targetColumn && itemToMove) {
         // Remove item from current column
         currentColumn.items.splice(indexInCurrentColumn!, 1);
+
         // Add item to target column at the specified index
         targetColumn.items.splice(indexInTargetColumn!, 0, {
           ...itemToMove,

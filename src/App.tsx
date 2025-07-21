@@ -1,10 +1,12 @@
 import {
-  closestCorners,
+  closestCenter,
   DndContext,
   DragOverlay,
   KeyboardSensor,
+  pointerWithin,
   useSensor,
   useSensors,
+  type CollisionDetection,
   type DragEndEvent,
   type DragStartEvent,
   type UniqueIdentifier,
@@ -59,6 +61,14 @@ function App() {
   });
   const dispatch = useAppDispatch();
 
+  const collisionDetectionStrategy: CollisionDetection = (args) => {
+    const pointerIntersections = pointerWithin(args);
+    if (pointerIntersections.length > 0) {
+      return pointerIntersections;
+    }
+    return closestCenter(args);
+  };
+
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(KeyboardSensor, {
@@ -85,6 +95,7 @@ function App() {
           containerId: over.data.current?.sortable.containerId,
           itemId: active.id as string,
           overId: over.id as string,
+          itemType: over.data.current?.type,
         })
       );
     }
@@ -114,7 +125,7 @@ function App() {
 
       <DndContext
         sensors={sensors}
-        collisionDetection={closestCorners}
+        collisionDetection={collisionDetectionStrategy}
         onDragEnd={handleDragEnd}
         // omitted for performance reasons, although it would definitely look nicer
         // onDragOver={handleDragOver}

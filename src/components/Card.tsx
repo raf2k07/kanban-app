@@ -38,7 +38,7 @@ export const Card: FunctionComponent<CardProps> = ({
   const dispatch = useAppDispatch();
   return (
     <div
-      className="bg-white rounded-md p-2"
+      className="bg-white rounded-md p-2 cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-200"
       ref={ref}
       style={style}
       {...dragListeners}
@@ -53,7 +53,7 @@ export const Card: FunctionComponent<CardProps> = ({
           <div className={"flex flex-row gap-2"}>
             <Button
               variant={"link"}
-              className="p-0 m-0 hover:opacity-75 cursor-pointer"
+              className="p-0 m-0 hover:opacity-75 cursor-pointer max-h-full"
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
@@ -64,7 +64,7 @@ export const Card: FunctionComponent<CardProps> = ({
               <img
                 src={EditDarkIconUrl}
                 alt={"Edit Item"}
-                className={"w-5 h-5"}
+                className={"w-4 h-4"}
               />
             </Button>
             <Button
@@ -79,7 +79,7 @@ export const Card: FunctionComponent<CardProps> = ({
               <img
                 src={DeleteDarkIconUrl}
                 alt={"Delete Item"}
-                className={"w-5 h-5"}
+                className={"w-4 h-4"}
               />
             </Button>
           </div>
