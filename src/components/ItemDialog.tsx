@@ -87,6 +87,7 @@ const ItemDialog: FunctionComponent = () => {
           />
         </div>
         <div className={"mb-4"}>
+          <h3 className={"text-md font-semibold mb-1"}>Column</h3>
           <Select
             onValueChange={(value) => {
               setParentColumn(value);
@@ -110,7 +111,6 @@ const ItemDialog: FunctionComponent = () => {
           {/* TODO Comment Section */}
           {/* render comment tree */}
           <h3 className={"text-md font-semibold mb-1"}>Comments</h3>
-
           <div className={"max-h-72 overflow-auto"}>
             {comments.map((comment) =>
               showCommentEdit === comment.id ? (
@@ -185,7 +185,7 @@ const ItemDialog: FunctionComponent = () => {
               )
             )}
           </div>
-          <div className="flex flex-row">
+          <div className="flex flex-row mt-4">
             <Input
               placeholder={"Leave a comment"}
               value={comment}
