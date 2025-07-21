@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 import { v4 as uuidv4 } from "uuid";
 import type { Column, Item } from "../types";
-import { PURGE } from "redux-persist";
 
 interface boardState {
   numberOfColumns: number;
@@ -80,13 +80,30 @@ export const boardSlice = createSlice({
         }
       }
     },
-    updateItem: (state, action: PayloadAction<{ item: Item }>) => {
-      const { item } = action.payload;
+    updateItem: (
+      state,
+      action: PayloadAction<{ item: Item; updatedParentId?: string }>
+    ) => {
+      const { item, updatedParentId } = action.payload;
       const column = state.columns.find((col) => col.id === item.parentId);
       if (column) {
         const itemIndex = column.items.findIndex((i) => i.id === item.id);
         if (itemIndex !== -1) {
           column.items[itemIndex] = item;
+        }
+        if (updatedParentId && updatedParentId !== column.id) {
+          const targetColumn = state.columns.find(
+            (col) => col.id === updatedParentId
+          );
+          if (targetColumn) {
+            // Remove item from current column
+            column.items.splice(itemIndex, 1);
+            // Add item to target column
+            targetColumn.items.push({
+              ...item,
+              parentId: targetColumn.id,
+            });
+          }
         }
       }
     },

@@ -19,6 +19,13 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { Input } from "./ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { Textarea } from "./ui/textarea";
 
 const ItemDialog: FunctionComponent = () => {
@@ -30,8 +37,11 @@ const ItemDialog: FunctionComponent = () => {
     return state.item.comments[item.id] || [];
   });
 
+  const columns = useAppSelector((state) => state.board.columns);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [parentColumn, setParentColumn] = useState("");
 
   const [comment, setComment] = useState("");
   const [edit, setEdit] = useState("");
@@ -44,6 +54,7 @@ const ItemDialog: FunctionComponent = () => {
     if (item) {
       setTitle(item.title);
       setDescription(item.description || "");
+      setParentColumn(item.parentId);
     }
   }, [item?.title, item?.description, item]);
 
@@ -74,6 +85,25 @@ const ItemDialog: FunctionComponent = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+        </div>
+        <div className={"mb-4"}>
+          <Select
+            onValueChange={(value) => {
+              setParentColumn(value);
+            }}
+            value={parentColumn}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a column" />
+            </SelectTrigger>
+            <SelectContent>
+              {columns.map((column) => (
+                <SelectItem key={column.id} value={column.id}>
+                  {column.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
@@ -194,7 +224,9 @@ const ItemDialog: FunctionComponent = () => {
                 description: description || "",
               };
               setError(null);
-              dispatch(updateItem({ item: updatedItem }));
+              dispatch(
+                updateItem({ item: updatedItem, updatedParentId: parentColumn })
+              );
               dispatch(toggleDialog());
             }
           }}

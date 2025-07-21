@@ -48,7 +48,7 @@ yarn preview
 
 ### Optional Features
 
-- Responsive Design (save for a minor pitfall)
+- Responsive Design
 - Keyboard Navigation to move tasks (Press `Tab` till the desired card is selected, hit `Enter` or `Space` to begin dragging and navigate to the desired spot with arrow keys)
 
 ## ❌ Features Missed
@@ -57,6 +57,6 @@ yarn preview
 
 ## 🐛 Known Issues
 
-- Users can do everything outside of moving cards on mobile - A custom implementation of the `MouseSensor` class for `dnd-kit` had to be used, which meant that the touch-supported built-in class could not be used.
+- Users can do everything outside of moving cards on mobile - A custom implementation of the `MouseSensor` class for `dnd-kit` had to be used, which meant that the touch-supported built-in class could not be used. (FIXED - A rudimentary column selector has been implemented in the item dialog)
 - There is a strange issue with the built-in collision detection on `dnd-kit` wherein high resolution screens mess with it. If you are unable to move cards to empty containers, consider resizing the browser window (this really isn't ideal but I ran out of time before I could write a custom implementation of the collision detection) (FIXED)
 - Adding a card to the end of a populated container _sometimes_ gets placed in the second last slot (FIXED)
